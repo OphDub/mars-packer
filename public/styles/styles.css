@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+
+html {
+  height: 100%;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.packer-hdr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid #000000;
+}
+
+.packer-form {
+  margin-bottom: 15px;
+}
+
+.item-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000000;
+  padding: 15px;
+}
+
+.item-name-section {
+  display: flex;
+  flex-direction: row;
+}
