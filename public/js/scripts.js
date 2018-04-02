@@ -1,4 +1,6 @@
-$(document).ready(() => { getItemsFromDb() });
+$(document).ready(() => {
+  getItemsFromDb();
+});
 $('.packer-btn').click((event) => saveItem(event));
 
 const getItemsFromDb = async () => {
@@ -6,9 +8,9 @@ const getItemsFromDb = async () => {
   const items = await fetchAndParse(url);
 
   items.forEach(item => {
-    prependItem(item)
+    prependItem(item);
   });
-}
+};
 
 const saveItem = (event) => {
   event.preventDefault();
