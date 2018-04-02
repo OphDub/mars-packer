@@ -1,7 +1,7 @@
-$(document).ready(() => { getItemsfromDb() });
+$(document).ready(() => { getItemsFromDb() });
 $('.packer-btn').click((event) => saveItem(event));
 
-const getItemsfromDb = async () => {
+const getItemsFromDb = async () => {
   const url = `/api/v1/items`;
   const items = await fetchAndParse(url);
 
