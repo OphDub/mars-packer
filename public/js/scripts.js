@@ -24,7 +24,7 @@ const appendItem = (item) => {
     <article class="item-card">
       <div class="item-name-section">
         <h4 class="item-name">${item.name}</h4>
-        <button class="delete-item-btn">Delete</button>
+        <button class="delete-item-btn" id=${item.id}>Delete</button>
       </div>
       <div class="item-pack-status">
         <input type="checkbox" name="packed-status" id="pack-status">
