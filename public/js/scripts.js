@@ -28,7 +28,7 @@ const saveItem = async (event) => {
 
   const savedItem = await saveItemToDb(item);
 
-  prependItem(savedItem);
+  await prependItem(savedItem);
 };
 
 const validateItem = (itemName) => {
@@ -64,6 +64,8 @@ const deleteItemFromDb = async (id) => {
 };
 
 const prependItem = (item) => {
+  console.log(item);
+
   const status = item.status === 'packed' ? `checked="checked"` : null;
 
   const itemTemp = `
