@@ -4,16 +4,19 @@ const saveItem = (event) => {
   event.preventDefault();
 
   const name = $('.packer-txt-input').val();
-  const item = { name, status: 'not packed' };
+  const item = {
+    name,
+    status: 'not packed'
+  };
   const savedItem = saveItemToDb(item);
 
   appendItem(savedItem);
 };
 
 const saveItemToDb = (item) => {
-  const url = `api/v1/items`;
+  const url = `/api/v1/items`;
 
-  return postAndParse(url, data);
+  return postAndParse(url, item);
 };
 
 const appendItem = (item) => {
@@ -44,7 +47,7 @@ const postAndParse = async (url, data) => {
     headers: {
       'content-type': 'application/json'
     },
-    method: 'POST',
+    method: 'POST'
   });
 
   return await initialFetch.json();
