@@ -9,24 +9,29 @@
   <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
-  <section>
-    <header class="packer-hdr">
-      <h3>My Mars Packer</h3>
-      <form action="submit">
-        <input type="text" placeholder="Item to pack..." class="packer-txt-input">
-        <button class="packer-btn">Add Item</button>
-      </form>
-    </header>
-  </section>
-  <section class="item-container">
-    <article class="item-card">
-      <div class="item-name-section">
-        <h4 class="item-name">Sample Item</h4>
-        <button class="delete-item-btn">Delete</button>
-      </div>
-      <input type="checkbox" name="packed-status" id="">
-    </article>
-  </section>
+  <main>
+    <section>
+      <header class="packer-hdr">
+        <h3>My Mars Packer</h3>
+        <form action="submit" class="packer-form">
+          <input type="text" placeholder="Item to pack..." class="packer-txt-input">
+          <button class="packer-btn">Add Item</button>
+        </form>
+      </header>
+    </section>
+    <section class="item-container">
+      <article class="item-card">
+        <div class="item-name-section">
+          <h4 class="item-name">Sample Item</h4>
+          <button class="delete-item-btn">Delete</button>
+        </div>
+        <div class="item-pack-status">
+          <input type="checkbox" name="packed-status" id="pack-status">
+          <label for="pack-status">Packed</label>
+        </div>
+      </article>
+    </section>
+  </main>
   <script src="./js/scripts.js"></script>
 </body>
 </html>
