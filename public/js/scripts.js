@@ -2,7 +2,9 @@ $(document).ready(() => {
   getItemsFromDb();
 });
 $('.packer-btn').click((event) => saveItem(event));
-$(document).on('click', '.delete-item-btn', (event) => { removeItem(event) });
+$(document).on('click', '.delete-item-btn', (event) => {
+  removeItem(event);
+});
 
 const getItemsFromDb = async () => {
   const url = `/api/v1/items`;
@@ -39,7 +41,7 @@ const removeItem = (event) => {
   const card = event.target.parentElement.parentElement;
 
   $(card).remove();
-  deleteItemFromDB(id);
+  deleteItemFromDb(id);
 };
 
 const deleteItemFromDb = async (id) => {
@@ -89,4 +91,4 @@ const deleteAndParse = async (url) => {
   });
 
   return await initialFetch.json();
-}
+};
