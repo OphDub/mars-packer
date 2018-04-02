@@ -11,7 +11,7 @@ const getItemsFromDb = async () => {
   const items = await fetchAndParse(url);
 
   await items.forEach(item => {
-    await prependItem(item);
+    prependItem(item);
   });
 };
 
