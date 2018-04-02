@@ -1,4 +1,16 @@
+$(document).ready(() => {
+  getItemsFromDb();
+});
 $('.packer-btn').click((event) => saveItem(event));
+
+const getItemsFromDb = async () => {
+  const url = `/api/v1/items`;
+  const items = await fetchAndParse(url);
+
+  items.forEach(item => {
+    prependItem(item);
+  });
+};
 
 const saveItem = (event) => {
   event.preventDefault();
@@ -10,7 +22,7 @@ const saveItem = (event) => {
   };
   const savedItem = saveItemToDb(item);
 
-  appendItem(savedItem);
+  prependItem(savedItem);
 };
 
 const saveItemToDb = (item) => {
@@ -19,7 +31,7 @@ const saveItemToDb = (item) => {
   return postAndParse(url, item);
 };
 
-const appendItem = (item) => {
+const prependItem = (item) => {
   const itemTemp = `
     <article class="item-card">
       <div class="item-name-section">

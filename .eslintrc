@@ -11,6 +11,7 @@
     "jquery": true
   },
   "rules": {
+    "no-console": 0,
     "eqeqeq": ["error", "always"],
     "getter-return": ["error", { "allowImplicit": true }],
     "indent": ["warn", 2],
