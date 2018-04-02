@@ -75,7 +75,7 @@ app.delete('/api/v1/items/:id', (request, response) => {
   database('items').where('id', itemId).delete()
     .then(deleted => {
       if (deleted) {
-        response.status(200).send(`Item successfully deleted.`);
+        response.status(200).json({ body: `Item successfully deleted.`});
       } else {
         response.status(404).send({
           error: `Unable to find item with id - ${itemId}.`
