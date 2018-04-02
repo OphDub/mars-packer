@@ -2,6 +2,7 @@ $(document).ready(() => {
   getItemsFromDb();
 });
 $('.packer-btn').click((event) => saveItem(event));
+$(document).on('click', '.delete-item-btn', (event) => { removeItem(event) });
 
 const getItemsFromDb = async () => {
   const url = `/api/v1/items`;
@@ -25,13 +26,30 @@ const saveItem = (event) => {
   prependItem(savedItem);
 };
 
-const saveItemToDb = (item) => {
+const saveItemToDb = async (itemInfo) => {
   const url = `/api/v1/items`;
 
-  return postAndParse(url, item);
+  return await postAndParse(url, {item: itemInfo});
+};
+
+const removeItem = (event) => {
+  event.preventDefault();
+
+  const { id } = event.target;
+  const card = event.target.parentElement.parentElement;
+
+  $(card).remove();
+  deleteItemFromDB(id);
+};
+
+const deleteItemFromDb = async (id) => {
+  const url = `/api/v1/items/${id}`;
+  deleteAndParse(url);
 };
 
 const prependItem = (item) => {
+  const status = item.status === 'packed' ? `checked="checked"` : null;
+
   const itemTemp = `
     <article class="item-card">
       <div class="item-name-section">
@@ -39,7 +57,7 @@ const prependItem = (item) => {
         <button class="delete-item-btn" id=${item.id}>Delete</button>
       </div>
       <div class="item-pack-status">
-        <input type="checkbox" name="packed-status" id="pack-status">
+        <input type="checkbox" name="packed-status" id="pack-status" ${status}>
         <label for="pack-status">Packed</label>
       </div>
     </article>`;
@@ -64,3 +82,11 @@ const postAndParse = async (url, data) => {
 
   return await initialFetch.json();
 };
+
+const deleteAndParse = async (url) => {
+  const initialFetch = await fetch(url, {
+    method: 'DELETE'
+  });
+
+  return await initialFetch.json();
+}
