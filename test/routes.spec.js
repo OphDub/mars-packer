@@ -134,26 +134,30 @@ describe('API endpoints', () => {
   });
 
   describe('DELETE /api/v1/items/:id', () => {
-    it.skip('should delete an item when given the correct id', () => {
+    it('should delete an item when given the correct id', () => {
       const itemId = 2;
 
       return chai.request(server)
       .delete(`/api/v1/items/${itemId}`)
       .then(response => {
-
+        expect(response.status).to.equal(200);
+        expect(response.body).to.equal('Item successfully deleted.');
       })
       .catch(error => {
         throw error;
       });
     });
 
-    it.skip('should return a 404 when given an incorrect item id', () => {
+    it('should return a 404 when given an incorrect item id', () => {
       const invalidItemId = 25;
 
       return chai.request(server)
       .delete(`/api/v1/items/${invalidItemId}`)
       .then(response => {
-
+        expect(response.status).to.equal(404);
+        expect(response.error).to.equal(
+          `Unable to find item with id - ${invalidItemId}.`
+        );
       })
       .catch(error => {
         throw error;
