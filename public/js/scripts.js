@@ -64,8 +64,6 @@ const deleteItemFromDb = async (id) => {
 };
 
 const prependItem = (item) => {
-  console.log(item);
-
   const status = item.status === 'packed' ? `checked="checked"` : null;
 
   const itemTemp = `

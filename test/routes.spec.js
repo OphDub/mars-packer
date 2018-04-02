@@ -89,7 +89,7 @@ describe('API endpoints', () => {
         .send({item: incompleteItem})
         .then(response => {
           expect(response.status).to.equal(404);
-          expect(response.error).to.equal(
+          expect(response.body.error).to.equal(
             `Expected format: { name: <string>, status: <string> }. You are missing a "status" property.`
           );
         })
@@ -102,11 +102,15 @@ describe('API endpoints', () => {
   describe('PATCH /api/v1/items/:id', () => {
     it('should change an item when given the correct id', () => {
       const itemId = 1;
+      const patchedItem = {
+        status: 'packed'
+      }
 
       return chai.request(server)
         .patch(`/api/v1/items/${itemId}`)
+        .send({ item: patchedItem })
         .then(response => {
-          expect(response.status).to.equal(200);
+          expect(response.status).to.equal(201);
           expect(response.body).to.equal('Item updated.');
         })
         .catch(error => {
@@ -116,12 +120,17 @@ describe('API endpoints', () => {
 
     it('should return a 404 when given an incorrect item id', () => {
       const invalidItemId = 25;
+      const invalidItem = {
+        name: 'water bottle',
+        status: 'not packed'
+      }
 
       return chai.request(server)
         .patch(`/api/v1/items/${invalidItemId}`)
+        .send({ item: invalidItem })
         .then(response => {
           expect(response.status).to.equal(404);
-          expect(response.error).to.equal(
+          expect(response.body.error).to.equal(
             `Unable to find item with id - ${invalidItemId}.`
           );
         })
@@ -153,7 +162,7 @@ describe('API endpoints', () => {
         .delete(`/api/v1/items/${invalidItemId}`)
         .then(response => {
           expect(response.status).to.equal(404);
-          expect(response.error).to.equal(
+          expect(response.body.error).to.equal(
             `Unable to find item with id - ${invalidItemId}.`
           );
         })

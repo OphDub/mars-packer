@@ -27,7 +27,7 @@ app.post('/api/v1/items', (request, response) => {
 
   for (let requiredParameter of ['name', 'status']) {
     if (!itemInfo[requiredParameter]) {
-      return response.status(404).send({
+      return response.status(404).json({
         error: `Expected format: { name: <string>, status: <string> }. You are missing a "${requiredParameter}" property.`
       });
     }
@@ -37,7 +37,7 @@ app.post('/api/v1/items', (request, response) => {
     .then(item => {
       const { name, status } = itemInfo;
 
-      response.status(201).json({
+      return response.status(201).json({
         id: item[0],
         name,
         status
@@ -75,7 +75,7 @@ app.delete('/api/v1/items/:id', (request, response) => {
   database('items').where('id', itemId).delete()
     .then(deleted => {
       if (deleted) {
-        response.status(200).json({ body: `Item successfully deleted.`});
+        return response.status(200).json(`Item successfully deleted.`);
       } else {
         response.status(404).send({
           error: `Unable to find item with id - ${itemId}.`
