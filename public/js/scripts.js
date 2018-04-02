@@ -1,5 +1,5 @@
-$(document).ready(() => {
-  getItemsFromDb();
+$(document).ready(async () => {
+  await getItemsFromDb();
 });
 $('.packer-btn').click((event) => saveItem(event));
 $(document).on('click', '.delete-item-btn', (event) => {
