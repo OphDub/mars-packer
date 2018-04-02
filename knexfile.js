@@ -10,4 +10,15 @@ module.exports = {
     },
     useNullAsDefault: true
   },
+  test: {
+    client: 'pg',
+    connection: 'postgres://localhost/mars_packer_test',
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds/test'
+    },
+    useNullAsDefault: true
+  },
 };
