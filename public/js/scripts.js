@@ -10,7 +10,7 @@ const getItemsFromDb = async () => {
   const url = `/api/v1/items`;
   const items = await fetchAndParse(url);
 
-  items.forEach(item => {
+  await items.forEach(item => {
     prependItem(item);
   });
 };
