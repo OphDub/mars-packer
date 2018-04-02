@@ -34,9 +34,11 @@ main {
   flex-direction: column;
   border: 1px solid #000000;
   padding: 15px;
+  width: 100%;
 }
 
 .item-name-section {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
