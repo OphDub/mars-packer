@@ -15,18 +15,32 @@ const getItemsFromDb = async () => {
   });
 };
 
-const saveItem = (event) => {
+const saveItem = async (event) => {
   event.preventDefault();
+  $('.info-container').text('');
 
   const name = $('.packer-txt-input').val();
-  const item = {
-    name,
-    status: 'not packed'
-  };
-  const savedItem = saveItemToDb(item);
+  const item = { name, status: 'not packed' };
+
+  if(!validateItem(name)) {
+    return
+  }
+
+  const savedItem = await saveItemToDb(item);
 
   prependItem(savedItem);
 };
+
+const validateItem = (itemName) => {
+  if (itemName === '') {
+    const errorMsg = `Give your item a name.`;
+
+    $('.info-container').text(errorMsg);
+    return false;
+  }
+
+  return true;
+}
 
 const saveItemToDb = async (itemInfo) => {
   const url = `/api/v1/items`;
