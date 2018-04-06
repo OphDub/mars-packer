@@ -81,14 +81,14 @@ describe('API endpoints', () => {
         });
     });
 
-    it('should return a 404 when given incomplete data', () => {
+    it('should return a 422 when given incomplete data', () => {
       const incompleteItem = { name: 'water bottle' };
 
       return chai.request(server)
         .post('/api/v1/items')
         .send({item: incompleteItem})
         .then(response => {
-          expect(response.status).to.equal(404);
+          expect(response.status).to.equal(422);
           expect(response.body.error).to.equal(
             `Expected format: { name: <string>, status: <string> }. You are missing a "status" property.`
           );

@@ -27,7 +27,7 @@ app.post('/api/v1/items', (request, response) => {
 
   for (let requiredParameter of ['name', 'status']) {
     if (!itemInfo[requiredParameter]) {
-      return response.status(404).json({
+      return response.status(422).json({
         error: `Expected format: { name: <string>, status: <string> }. You are missing a "${requiredParameter}" property.`
       });
     }
