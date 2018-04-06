@@ -5,6 +5,9 @@ $('.packer-btn').click((event) => saveItem(event));
 $(document).on('click', '.delete-item-btn', (event) => {
   removeItem(event);
 });
+$(document).on('click', '.pack-status', (event) => {
+  changeItemStatus(event);
+});
 
 const getItemsFromDb = async () => {
   const url = `/api/v1/items`;
@@ -63,6 +66,20 @@ const deleteItemFromDb = async (id) => {
   deleteAndParse(url);
 };
 
+const changeItemStatus = (event) => {
+  const { id } = event.target;
+  const name = $(event.target).closest('.item-card').find('.item-name').text();
+  const status = $(event.target).prop('checked') === true ? 'packed' : 'not packed';
+  const item = { name, status };
+
+  patchItemInDb(id, { item });
+};
+
+const patchItemInDb = async (id, item) => {
+  const url = `/api/v1/items/${id}`;
+  await patchAndParse(url, item);
+};
+
 const prependItem = (item) => {
   const status = item.status === 'packed' ? `checked="checked"` : null;
 
@@ -73,7 +90,7 @@ const prependItem = (item) => {
         <button class="delete-item-btn" id=${item.id}>Delete</button>
       </div>
       <div class="item-pack-status">
-        <input type="checkbox" name="packed-status" id="pack-status" ${status}>
+        <input type="checkbox" name="packed-status" class="pack-status" id=${item.id} ${status}>
         <label for="pack-status">Packed</label>
       </div>
     </article>`;
@@ -83,6 +100,19 @@ const prependItem = (item) => {
 
 const fetchAndParse = async (url) => {
   const initialFetch = await fetch(url);
+  return await initialFetch.json();
+};
+
+const patchAndParse = async (url, data) => {
+  const initialFetch = await fetch(url, {
+    body: JSON.stringify(data),
+    cache: 'no-cache',
+    headers: {
+      'content-type': 'application/json'
+    },
+    method: 'PATCH'
+  });
+
   return await initialFetch.json();
 };
 
