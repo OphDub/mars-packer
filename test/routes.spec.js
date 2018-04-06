@@ -103,6 +103,7 @@ describe('API endpoints', () => {
     it('should change an item when given the correct id', () => {
       const itemId = 1;
       const patchedItem = {
+        name: 'My Macbook',
         status: 'packed'
       }
 
@@ -133,6 +134,25 @@ describe('API endpoints', () => {
           expect(response.body.error).to.equal(
             `Unable to find item with id - ${invalidItemId}.`
           );
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+
+    it('should return a 422 when given incomplete item information', () => {
+      const itemId = 1;
+      const incompleteItem = {
+        name: 'My Macbook',
+      }
+      const missingProperty = 'status';
+
+      return chai.request(server)
+        .patch(`/api/v1/items/${itemId}`)
+        .send({ item: incompleteItem })
+        .then(response => {
+          expect(response.status).to.equal(422);
+          expect(response.body.error).to.equal(`Expected format: { name: <string>, status: <string> }. You are missing a "${missingProperty}" property.`);
         })
         .catch(error => {
           throw error;

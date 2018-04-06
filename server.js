@@ -53,6 +53,14 @@ app.patch('/api/v1/items/:id', (request, response) => {
   const { name, status } = request.body.item;
   const itemInfo = { name, status };
 
+  for (let requiredParameter of ['name', 'status']) {
+    if (!itemInfo[requiredParameter]) {
+      return response.status(422).json({
+        error: `Expected format: { name: <string>, status: <string> }. You are missing a "${requiredParameter}" property.`
+      });
+    }
+  }
+
   database('items').where('id', itemId)
     .update({ ...itemInfo })
     .then(updated => {
